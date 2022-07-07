@@ -1,0 +1,22 @@
+<section class="home-section"
+         *mobxAutorun="{ dontDetach: true }">
+  <perfect-scrollbar>
+    <section class="scroll-content"
+             fxLayout="column"
+             fxLayoutAlign="start stretch"
+             fxLayoutGap="16px">
+      <h1 class="home-title">BIENVENUE AU SPARTE CHALLENGE</h1>
+      <div class="challenges-container">
+        <div class="challenge-div"
+             *ngFor="let category of challengeData">
+          <h4 class="challenge-category">{{category.name}}</h4>
+          <ul>
+            <li class="challenge-line"
+                *ngFor="let challenge of category.challenges"
+                [innerHtml]="challenge"></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </perfect-scrollbar>
+</section>

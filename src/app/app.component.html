@@ -1,0 +1,40 @@
+<section class="mat-typography app-container"
+         *mobxAutorun="{ dontDetach: true }">
+  <mat-toolbar class="header-toolbar"
+               fxLayout="column">
+    <mat-toolbar-row class="ele-4dp"
+                     fxLayout="row"
+                     fxLayoutAlign="space-between center"> SPARTE CHALLENGE </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-sidenav-container class="nav-container">
+    <mat-sidenav class="sparte-menu ele-4dp"
+                 opened
+                 fixedInViewport
+                 mode="side"
+                 fxFlex="0 0 300px"
+                 fxLayout="column"
+                 fxLayoutAlign="center">
+      <div class="menu-container">
+        <perfect-scrollbar class="scroll-sparte-menu">
+          <mat-nav-list class="navigation-list">
+            <div *ngFor="let navlink of navLinks; trackBy: trackByIdx"
+                 class="side-menu-item">
+              <a class="menu-link ele-hover-4dp"
+                 fxLayout="row"
+                 [routerLink]="navlink.link"
+                 routerLinkActive="active"
+                 #navLinkActive="routerLinkActive"
+                 fxLayoutAlign="start center">
+                <mat-icon matListIcon>{{ navlink.icon }}</mat-icon>
+                <mat-label matLine>{{ navlink.label }}</mat-label>
+              </a>
+            </div>
+          </mat-nav-list>
+        </perfect-scrollbar>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content class="sparte-body">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</section>

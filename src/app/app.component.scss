@@ -1,0 +1,81 @@
+:host {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+}
+
+.app-container {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.nav-container {
+  height: calc(100% - 64px);
+  width: 100%;
+  position: relative;
+  display: block;
+}
+
+.sparte-menu {
+  padding-top: 8px;
+  background-color: #fafafa !important;
+  position: relative !important;
+  height: 100%;
+  overflow: hidden;
+  border: none;
+
+  .scroll-sparte-menu {
+    height: 100%;
+  }
+
+  .menu-container {
+    width: 100%;
+    height: 100%;
+    color: #FFFFFF;
+    position: absolute;
+  }
+
+  .navigation-list {
+    padding-top: 0;
+  }
+
+  .menu-link {
+    height: 56px;
+    border-radius: 0 !important;
+    color: #707070;
+    padding: 0px 24px;
+    letter-spacing: 0.1em;
+
+    .mat-line {
+      text-transform: uppercase;
+    }
+
+    &.active {
+      color: #183E77;
+      font-weight: 500;
+    }
+
+    &:hover {
+      color: #183E77;
+      background-color: #eceff1 !important;
+    }
+  }
+}
+
+.sparte-body {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  margin-left: 0 !important;
+  overflow: hidden;
+  background-color: #F7F7F7;
+}
+
+.header-toolbar {
+  position: relative;
+  color: #00194B !important;
+  background-color: #FFFFFF;
+  z-index: 999;
+}

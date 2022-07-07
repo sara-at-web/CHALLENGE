@@ -1,0 +1,38 @@
+{
+  "name": "sparte-challenge",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --open"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^13.3.11",
+    "@angular/common": "^13.3.11",
+    "@angular/compiler": "^13.3.11",
+    "@angular/core": "^13.3.11",
+    "@angular/flex-layout": "^13.0.0-beta.38",
+    "@angular/forms": "^13.3.11",
+    "@angular/material": "^13.3.9",
+    "@angular/platform-browser": "^13.3.11",
+    "@angular/platform-browser-dynamic": "^13.3.11",
+    "@angular/router": "^13.3.11",
+    "@nrwl/angular": "14.1.9",
+    "echarts": "^5.3.3",
+    "mobx-angular": "^4.5.1",
+    "moment": "^2.29.3",
+    "ngx-echarts": "^8.0.1",
+    "ngx-perfect-scrollbar": "^10.1.1",
+    "rxjs": "~7.5.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^13.3.8",
+    "@angular/cli": "^13.3.8",
+    "@angular/compiler-cli": "^13.3.11",
+    "@nrwl/workspace": "14.1.9",
+    "nx": "14.1.9",
+    "typescript": "4.6"
+  }
+}

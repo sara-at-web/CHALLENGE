@@ -1,0 +1,50 @@
+<section class="challenge-section"
+         *mobxAutorun="{ dontDetach: true }">
+  <perfect-scrollbar>
+    <div class="layout-grid"
+         fxLayout="row wrap"
+         fxLayoutGap="24px grid">
+      <div fxFlex="50%">
+        <div class="chart-container">
+          <div class="chart-title">
+            <span>Systemes par Environnement</span>
+          </div>
+          <app-echart class="e-chart"
+                      [options]="systemByEnvOpts">
+          </app-echart>
+        </div>
+      </div>
+      <div fxFlex="50%">
+        <div class="chart-container">
+          <div class="chart-title">
+            <span>Assets Par Systemes</span>
+          </div>
+          <app-echart class="e-chart"
+                      [options]="assetsBySystemOpts">
+          </app-echart>
+        </div>
+      </div>
+      <div fxFlex="100%"
+           *ngFor="let system of systemsStackedCharts; trackBy: ngForTrackByFn;">
+        <div class="chart-container">
+          <div class="chart-title">
+            <span>Températures Systeme <b>{{getSystemName(system.id)}}</b></span>
+          </div>
+          <app-echart class="e-chart"
+                      [options]="system.options">
+          </app-echart>
+        </div>
+      </div>
+      <div fxFlex="100%">
+        <div class="chart-container">
+          <div class="chart-title">
+            <span>Production Machine Par Jour</span>
+          </div>
+          <app-echart class="e-chart"
+                      [options]="machinesOutputsOpts">
+          </app-echart>
+        </div>
+      </div>
+    </div>
+  </perfect-scrollbar>
+</section>
