@@ -2,19 +2,19 @@
 
 Bienvenue sur le Sparte Challenge !
 
-#Prérequis :
-- Node 16 ou plus
+# Prérequis :
+Node 16 ou plus
 
-Pour installer, il suffit de faire npm i dans le projet
+# Installation
+npm i
 
-Pour lancer, npm run start
+# Mise en route
+npm run start
 
+# Instruction challenge
 Créer une branche git avant de commencer à code.
 Quand le test est terminé, faire une pull request sur la branche master.
 
-Les instructions sont sur http://localhost:4200/home
+Les exercices sont sur http://localhost:4200/home
 
 Merci et bon courage !
-
-
-Marc.
