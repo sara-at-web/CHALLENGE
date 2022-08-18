@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { BarSeriesOption, EChartsOption, LineSeriesOption } from 'echarts';
 import moment from 'moment';
+import { environment } from 'src/environments/environment';
 
 import { Asset } from '../../models/asset.model';
 import { ChallengeService } from '../../services/challenge.service';
@@ -117,13 +118,35 @@ export class ChallengeComponent implements AfterViewInit {
   getSystemName(system_id: string): string {
     return this.challengeService.getSystem(system_id)?.name;
   }
+  /**
+   * sert a grouper un ensemble de donnée par une proprieté specifique 
+   */
+  public groupBy(data : any[], property : string, ) : object{
+        let result : object = {}
+      data.forEach(function(item){
+      let list = result[item[property]];
+      if(list){
+          list.push(item);
+      } else{
+          result [item[property]] = [item];
+      }
+    });
+      return result;
+    }
 
   /**
    * TODO: Récupérer le nombre de systemes par environnement
    * @returns {PieData[]} sous la forme [{name, value}]
    */
   get systemByEnvData(): PieData[] {
-    return [];
+
+    let tmp = this.challengeService.getSystems
+    let result : PieData[] = [];
+    var groups = this.groupBy(tmp,'environment_id')
+    for(let key in groups){
+      result.push({name : key, value : groups[key].length })
+    }
+    return result;
   }
 
   /**
@@ -131,7 +154,15 @@ export class ChallengeComponent implements AfterViewInit {
    * @returns {PieData[]} sous la forme [{name, value}]
    */
   get assetBySystemData(): PieData[] {
-    return [];
+
+    let tmp = this.challengeService.getAssets
+    let result = []
+    for(let SysId of this.systemsIdsForAssetPieChart){
+    let clone = [...tmp];
+    let filtredData = clone.filter( e =>e.system_ids[e.system_ids.findIndex(x => x === SysId)] === SysId)
+    result.push({name : SysId, value : filtredData.length})
+    }
+    return result;
   }
 
   /**
@@ -146,7 +177,7 @@ export class ChallengeComponent implements AfterViewInit {
    * tip: utiliser moment(hour).format('LL') pour récupérer le jour pour une heure donnée
    */
   get xAxisByDays(): string[] {
-    return [];
+    return this.challengeService.timeframe.map(hour => moment(hour).format('LL'));
   }
 
   /**
@@ -155,6 +186,7 @@ export class ChallengeComponent implements AfterViewInit {
    * @returns noms des assets
    */
   getAssetNamesForSystem(system_id: string): string[] {
+
     return this.challengeService.getSystem(system_id).recursiveAssets
       .filter(asset => asset.data.some(assetData => assetData.name === "temperature"))
       .map(asset => asset.label)
@@ -167,13 +199,16 @@ export class ChallengeComponent implements AfterViewInit {
    * @returns Series pour le LineChart
    */
   getTemperaturesByAssetForSystem(system_id: string): LineSeriesOption[] {
+
     return this.challengeService.getSystem(system_id).recursiveAssets
       .filter(asset => asset.data.some(assetData => assetData.name === "temperature"))
-      .map(asset => ({
+      .map(asset =>  ({
         name: asset.label,
         type: 'line',
-        data: []
+        data: asset.data[0].values
       }));
+
+      
   }
 
   /**
@@ -183,6 +218,15 @@ export class ChallengeComponent implements AfterViewInit {
    */
   getSerieForMachine(machine: Asset): BarSeriesOption {
     const machineOutputData = new Map<string, number>();
+    let outputs = machine.data[1].values
+    let days = new Set<string>(outputs.map(item => ( moment(item.timestamp).format('LL') )));
+    days.forEach(day => {
+        let fabricationbyday = outputs.filter(item => moment(item.timestamp).format('LL') == day )
+        const result = fabricationbyday.reduce((accumulator, obj) => {
+          return accumulator + obj.value;
+        }, 0);
+        machineOutputData.set(day,result )
+    })
     return {
       name: machine.label,
       type: 'bar',
@@ -190,11 +234,15 @@ export class ChallengeComponent implements AfterViewInit {
       label: {
         show: true
       },
-      data: Array.from(machineOutputData.values())
+    
+      data: Array.from(machineOutputData)
+
     }
   }
 
   ngForTrackByFn(index, item) {
+    
     return item.id;
   }
+  
 }

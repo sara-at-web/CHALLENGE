@@ -20,6 +20,12 @@ export class System {
 
   //TODO: Rendre la fonction récursive (elle ne récupère que les assets direct, mais pas les assets des systemes enfants)
   get recursiveAssets(): Asset[] {
+    let childAssets = [] 
+    if(this.systems == [])
     return this.service.getAssets.filter(asset => asset.system_ids.includes(this.id));
+    this.systems.forEach(system => { 
+      childAssets.concat(system.recursiveAssets)
+    });
+  return this.service.getAssets.filter(asset => asset.system_ids.includes(this.id)).filter(x => !childAssets.includes(x));
   }
 }
